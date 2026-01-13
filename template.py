@@ -3,20 +3,22 @@ from random import random
 
 # set episode session state
 # Helper functions for UI
+# Helper functions for UI
 def tile_item(column, item):
     with column:
-        # Use a container for better spacing and alignment
-        with st.container():
-            # Display image with a fixed width to ensure uniformity if possible, 
-            # though st.image 'use_column_width' is usually good responsiveness.
-            try:
-                st.image(item['Image-URL-M'], use_container_width=True)
-            except:
-                st.text("No Image")
-                
-            st.markdown(f"**{item['Book-Title']}**")
-            st.caption(f"{item['Book-Author']}")
-            st.caption(f"{item['Year-Of-Publication']}")
+        st.markdown(
+            f"""
+            <div class="book-card">
+                <img src="{item['Image-URL-M']}" style="width: 100%; height: 200px; object-fit: cover;">
+                <div class="book-title" title="{item['Book-Title']}">{item['Book-Title']}</div>
+                <div class="book-author">{item['Book-Author']}</div>
+                <div class="book-stats">
+                    {item['Year-Of-Publication']}
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
 def recommendations(df):
     # check the number of items
